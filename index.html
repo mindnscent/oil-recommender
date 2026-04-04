@@ -380,9 +380,16 @@ body{
   40%{opacity:1;transform:scale(1);}
 }
 
-@media(max-width:580px){.app{box-shadow:none;}}
-.in-iframe .logo-img{display:none;}
-.in-iframe .app-header{padding:6px 20px 6px;}
+@media(max-width:580px){
+  .app{box-shadow:none;}
+  .app-header{padding:12px 20px 8px;}
+  .logo-img{height:44px;margin:0 auto 6px;}
+  .emotion-page-header{padding:16px 24px 10px;}
+  .big-cat-grid{padding:0 24px 16px;row-gap:10px;column-gap:10px;}
+  .big-cat-card{padding:14px 10px;min-height:80px;}
+  .big-cat-label{font-size:13px;line-height:1.4;}
+}
+@media(min-width:581px){.in-iframe .logo-img{display:none;}.in-iframe .app-header{padding:6px 20px 6px;}}
 </style>
 </head>
 <body>
