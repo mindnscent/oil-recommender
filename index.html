@@ -357,7 +357,7 @@ body{
   background:var(--white);flex-shrink:0;
 }
 .footer-brand{
-  font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;
+  font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;font-weight:600;
   color:var(--sage-500);letter-spacing:4px;text-transform:uppercase;
 }
 .footer-sub{font-size:0.65rem;color:var(--sage-400);margin-top:3px;font-weight:300;}
@@ -651,7 +651,9 @@ async function showSubOptions(catId, subIdx) {
 // === CHAT ENGINE ===
 const chatArea = document.getElementById('chatArea');
 
+let autoScrollEnabled=true;
 function scrollRecommendBottom(){
+  if(!autoScrollEnabled) return;
   requestAnimationFrame(()=>{
     setTimeout(()=>{
       const el=document.getElementById("chatArea");
@@ -702,6 +704,9 @@ async function selectOil(oilId){
 
   await addBotMsg(`그런 마음이시군요.<br>당신을 위한 오일을 찾았어요. ✨`);
 
+  // 오일카드부터는 자동스크롤 끄고 마지막에 한번만 스크롤
+  autoScrollEnabled=false;
+
   addTyping();
   await new Promise(r=>setTimeout(r,1000));
   removeTyping();
@@ -725,6 +730,7 @@ async function selectOil(oilId){
   }
 
   document.getElementById('chatBottom').style.display='block';
+  autoScrollEnabled=true;
 
   // 모든 메시지 추가 완료 후 오일 카드 상단으로 스크롤
   setTimeout(()=>{
