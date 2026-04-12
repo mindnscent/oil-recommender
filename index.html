@@ -219,6 +219,7 @@ body{
   display:flex;align-items:center;gap:8px;
   padding:16px 0 12px;flex-wrap:wrap;
 }
+@media(max-width:768px){.oil-card-head{padding-top:20px;}}
 .oil-card-icon{
   width:28px;height:28px;border-radius:8px;
   background:linear-gradient(135deg,var(--sage-50),var(--sage-100));
@@ -344,8 +345,9 @@ body{
 .modal{
   position:absolute;top:0;left:0;right:0;bottom:0;
   background:var(--white);
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overflow-y:scroll;-webkit-overflow-scrolling:touch;
   padding:0 36px 60px;
+  overscroll-behavior:contain;
 }
 .modal-handle{display:none;}
 .modal-close{
@@ -808,15 +810,20 @@ function openModal(id){
   const oil=allOils.find(o=>o.id===id);if(!oil)return;
   const m=document.getElementById('modalContent');
   m.innerHTML=`
-    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">&times;</button>
+    <button class="modal-close" onclick="closeModalBtn()">&times;</button>
     <div style="clear:both;"></div>
     ${buildOilCard(oil).replace('oil-card-wrap','').replace('oil-card','oil-card" style="border:none;box-shadow:none;padding:0')}`;
   m.scrollTop=0;
   document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
   setTimeout(()=>{m.scrollTop=0;},50);
 }
-function closeModal(e){if(e.target===document.getElementById('modalOverlay')||e.target===document.getElementById('modalContent'))return;document.getElementById('modalOverlay').classList.remove('show');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('modalOverlay').classList.remove('show');});
+function closeModalBtn(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+function closeModal(e){e.stopPropagation();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalBtn();});
 
 // INIT
 renderCatScroll();
