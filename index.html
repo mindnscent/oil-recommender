@@ -19,11 +19,12 @@
   --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
 body{
   font-family:'Noto Sans KR',-apple-system,sans-serif;
   background:var(--bg);color:var(--sage-800);
   line-height:1.7;-webkit-font-smoothing:antialiased;
-  overflow:hidden;height:100vh;height:100dvh;
+  overflow:hidden;
 }
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
@@ -31,7 +32,7 @@ body{
 
 /* === APP SHELL === */
 .app{
-  max-width:580px;margin:0 auto;height:100vh;height:100dvh;
+  max-width:580px;margin:0 auto;height:100%;
   display:flex;flex-direction:column;background:var(--white);
   box-shadow:var(--shadow-lg);overflow:hidden;
 }
@@ -581,6 +582,7 @@ function goToPage(n){
   if(n===0){
     document.getElementById('chatArea').innerHTML='';
     document.getElementById('chatBottom').style.display='none';
+    document.getElementById('page0').scrollTop=0;
     currentCategory=null;
   }
 }
