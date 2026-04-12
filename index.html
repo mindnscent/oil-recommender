@@ -281,7 +281,7 @@ body{
 /* === GALLERY === */
 .section{display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0;}
 .section.active{display:flex;}
-.gallery-area{padding:16px;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+.gallery-area{padding:16px;padding-bottom:80px;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 .search-box{position:relative;margin-bottom:12px;}
 .search-box input{
   width:100%;padding:12px 16px 12px 40px;
@@ -616,6 +616,7 @@ function selectCategory(catId) {
     await new Promise(r=>setTimeout(r,800));
     removeTyping();
 
+    autoScrollEnabled=false;
     if(cat.hasSub){
       const subHtml = cat.subs.map((s,i) =>
         `<button class="follow-btn" onclick="showSubOptions('${catId}',${i})"><span class="follow-btn-dot"></span>${s.subLabel}</button>`
@@ -627,7 +628,8 @@ function selectCategory(catId) {
       ).join('');
       await addBotMsg(`${cat.question}<div class="follow-options">${optHtml}</div>`);
     }
-    setTimeout(()=>{ document.getElementById('chatArea').scrollTop=0; },300);
+    autoScrollEnabled=true;
+    setTimeout(()=>{ document.getElementById('chatArea').scrollTop=0; },50);
   }, 400);
 }
 
@@ -644,8 +646,10 @@ async function showSubOptions(catId, subIdx) {
   const optHtml = sub.subOptions.map(o =>
     `<button class="follow-btn" onclick="selectOil(${o.oilId})"><span class="follow-btn-dot"></span>${o.text}</button>`
   ).join('');
+  autoScrollEnabled=false;
   await addBotMsg(`조금 더 구체적으로 어떤 느낌이세요?<div class="follow-options">${optHtml}</div>`);
-  setTimeout(()=>{ document.getElementById('chatArea').scrollTop=0; },300);
+  autoScrollEnabled=true;
+  setTimeout(()=>{ document.getElementById('chatArea').scrollTop=0; },50);
 }
 
 // === CHAT ENGINE ===
