@@ -627,6 +627,7 @@ function selectCategory(catId) {
       ).join('');
       await addBotMsg(`${cat.question}<div class="follow-options">${optHtml}</div>`);
     }
+    requestAnimationFrame(()=>{ document.getElementById('chatArea').scrollTop=0; });
   }, 400);
 }
 
