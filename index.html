@@ -165,7 +165,7 @@ body{
 }
 
 .chat-area{
-  padding:16px;flex:1;min-height:0;
+  padding:16px 16px 100px;flex:1;min-height:0;
   display:flex;flex-direction:column;gap:10px;
   overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
 }
@@ -648,8 +648,10 @@ const chatArea = document.getElementById('chatArea');
 
 function scrollRecommendBottom(){
   requestAnimationFrame(()=>{
-    const el=document.getElementById("chatArea");
-    el.scrollTop=el.scrollHeight;
+    setTimeout(()=>{
+      const el=document.getElementById("chatArea");
+      if(el) el.scrollTop=el.scrollHeight+500;
+    },100);
   });
 }
 function addBotMsg(html,delay=0){
