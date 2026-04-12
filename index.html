@@ -335,27 +335,16 @@ body{
 .oil-item-arrow{color:var(--sage-300);flex-shrink:0;}
 .no-results{text-align:center;padding:40px 20px;color:var(--sage-400);font-size:0.9rem;}
 
-/* === MODAL === */
-.modal-overlay{
-  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
-  background:var(--white);
-  z-index:1000;overflow-y:scroll;-webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
+/* === OIL DETAIL (in-gallery) === */
+.oil-detail-view{display:none;padding:0 12px 40px;}
+.oil-detail-view.active{display:block;}
+.oil-detail-back{
+  display:inline-flex;align-items:center;gap:4px;
+  background:none;border:none;color:var(--sage-500);
+  font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;
+  cursor:pointer;padding:8px 0;margin-bottom:4px;
 }
-.modal-overlay.show{display:block;}
-.modal{
-  padding:0 36px 80px;max-width:580px;margin:0 auto;
-}
-.modal-handle{display:none;}
-.modal-close{
-  position:sticky;top:10px;float:right;z-index:1010;
-  margin:10px -8px 0 0;
-  background:var(--sage-50);box-shadow:0 2px 8px rgba(0,0,0,0.1);
-  border:none;width:36px;height:36px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--sage-500);font-size:1.3rem;cursor:pointer;transition:var(--transition);
-}
-.modal-close:hover{background:var(--sage-200);}
+.oil-detail-back:hover{color:var(--sage-700);}
 
 /* === FOOTER === */
 .app-footer{
@@ -441,6 +430,7 @@ body{
       </div>
       <div class="cat-scroll" id="catScroll"></div>
       <div class="oil-list" id="oilList"></div>
+      <div class="oil-detail-view" id="oilDetailView"></div>
       <div class="no-results" id="noResults" style="display:none;">검색 결과가 없습니다</div>
     </div>
   </section>
@@ -451,10 +441,7 @@ body{
   </footer>
 </div>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modalContent"></div>
-</div>
+<!-- modal removed, using in-gallery detail view -->
 
 <script>
 if(window.self!==window.top&&window.screen.width>768){document.documentElement.classList.add('desktop-widget');}
@@ -805,21 +792,30 @@ function renderOilList(list){
 }
 function openModal(id){
   const oil=allOils.find(o=>o.id===id);if(!oil)return;
-  const m=document.getElementById('modalContent');
-  m.innerHTML=`
-    <button class="modal-close" onclick="closeModalBtn()">&times;</button>
-    <div style="clear:both;"></div>
-    ${buildOilCard(oil).replace('oil-card-wrap','').replace('oil-card','oil-card" style="border:none;box-shadow:none;padding:0')}`;
-  const ov=document.getElementById('modalOverlay');
-  ov.classList.add('show');
-  ov.scrollTop=0;
-  setTimeout(()=>{ov.scrollTop=0;},10);
+  const dv=document.getElementById('oilDetailView');
+  dv.innerHTML=`
+    <button class="oil-detail-back" onclick="closeOilDetail()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+      목록으로
+    </button>
+    ${buildOilCard(oil)}`;
+  document.getElementById('oilList').style.display='none';
+  document.getElementById('noResults').style.display='none';
+  document.getElementById('searchInput').parentElement.style.display='none';
+  document.getElementById('catScroll').style.display='none';
+  dv.classList.add('active');
+  document.querySelector('.gallery-area').scrollTop=0;
 }
-function closeModalBtn(){
-  document.getElementById('modalOverlay').classList.remove('show');
+function closeOilDetail(){
+  const dv=document.getElementById('oilDetailView');
+  dv.classList.remove('active');
+  dv.innerHTML='';
+  document.getElementById('oilList').style.display='';
+  document.getElementById('searchInput').parentElement.style.display='';
+  document.getElementById('catScroll').style.display='';
+  filterGallery();
 }
-function closeModal(e){e.stopPropagation();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalBtn();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOilDetail();});
 
 // INIT
 renderCatScroll();
