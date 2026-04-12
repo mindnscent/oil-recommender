@@ -216,28 +216,27 @@ body{
 }
 .oil-card::before{display:none;}
 .oil-card-head{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:28px 20px 24px;text-align:center;
-  background:linear-gradient(180deg,var(--sage-50) 0%,var(--white) 100%);
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0 16px;
 }
 .oil-card-icon{
-  width:64px;height:64px;border-radius:18px;
-  background:linear-gradient(135deg,var(--sage-100),var(--sage-200));
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--sage-50),var(--sage-100));
   display:flex;align-items:center;justify-content:center;
-  font-size:1.8rem;flex-shrink:0;box-shadow:var(--shadow-sm);
+  font-size:1.1rem;flex-shrink:0;
 }
-.oil-card-name{font-size:1.2rem;font-weight:600;color:var(--sage-800);}
+.oil-card-name{font-size:1.15rem;font-weight:600;color:var(--sage-800);}
 .oil-card-en{
   font-family:'Cormorant Garamond',serif;
-  font-size:0.92rem;color:var(--sage-500);font-style:italic;
+  font-size:0.88rem;color:var(--sage-500);font-style:italic;
 }
 .oil-card-keyword{
   display:inline-block;
   background:linear-gradient(135deg,var(--sage-100),var(--sage-200));
-  color:var(--sage-700);padding:5px 16px;border-radius:50px;
-  font-size:0.75rem;font-weight:500;margin-top:4px;
+  color:var(--sage-700);padding:4px 14px;border-radius:50px;
+  font-size:0.72rem;font-weight:500;margin-top:2px;
 }
-.oil-card-body{padding:0 4px;}
+.oil-card-body{padding:0;}
 .oil-card-divider{height:1px;background:var(--sage-100);margin:20px 0;}
 .oil-card-label{
   font-size:0.68rem;font-weight:600;color:var(--sage-400);
@@ -345,7 +344,7 @@ body{
 .modal{
   background:var(--white);
   max-width:580px;width:100%;height:100%;overflow-y:auto;
-  padding:0 24px 40px;position:relative;animation:slideUp 0.35s ease;
+  padding:0 28px 40px;position:relative;animation:slideUp 0.35s ease;
 }
 .modal-handle{display:none;}
 .modal-close{
@@ -733,9 +732,11 @@ function buildOilCard(oil){
   return `<div class="oil-card-wrap"><div class="oil-card">
     <div class="oil-card-head">
       <div class="oil-card-icon">${oil.icon}</div>
-      <div class="oil-card-name">${oil.name}</div>
-      <div class="oil-card-en">${oil.en}</div>
-      <span class="oil-card-keyword">${oil.keyword}</span>
+      <div>
+        <div class="oil-card-name">${oil.name}</div>
+        <div class="oil-card-en">${oil.en}</div>
+        <span class="oil-card-keyword">${oil.keyword}</span>
+      </div>
     </div>
     <div class="oil-card-body">
       <div class="oil-card-label">당신에게 묻고 싶어요</div>
