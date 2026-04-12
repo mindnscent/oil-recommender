@@ -216,35 +216,35 @@ body{
 }
 .oil-card::before{display:none;}
 .oil-card-head{
-  display:flex;align-items:center;gap:12px;
-  padding:20px 0 16px;
+  display:flex;align-items:center;gap:8px;
+  padding:16px 0 12px;flex-wrap:wrap;
 }
 .oil-card-icon{
-  width:36px;height:36px;border-radius:10px;
+  width:28px;height:28px;border-radius:8px;
   background:linear-gradient(135deg,var(--sage-50),var(--sage-100));
   display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;flex-shrink:0;
+  font-size:0.95rem;flex-shrink:0;
 }
-.oil-card-name{font-size:1.15rem;font-weight:600;color:var(--sage-800);}
+.oil-card-name{font-size:1.05rem;font-weight:600;color:var(--sage-800);}
 .oil-card-en{
   font-family:'Cormorant Garamond',serif;
-  font-size:0.88rem;color:var(--sage-500);font-style:italic;
+  font-size:0.82rem;color:var(--sage-500);font-style:italic;
 }
 .oil-card-keyword{
   display:inline-block;
   background:linear-gradient(135deg,var(--sage-100),var(--sage-200));
-  color:var(--sage-700);padding:4px 14px;border-radius:50px;
-  font-size:0.72rem;font-weight:500;margin-top:2px;
+  color:var(--sage-700);padding:3px 12px;border-radius:50px;
+  font-size:0.7rem;font-weight:500;
 }
 .oil-card-body{padding:0;}
-.oil-card-divider{height:1px;background:var(--sage-100);margin:20px 0;}
+.oil-card-divider{height:1px;background:var(--sage-100);margin:14px 0;}
 .oil-card-label{
   font-size:0.68rem;font-weight:600;color:var(--sage-400);
-  letter-spacing:1.5px;text-transform:uppercase;margin-top:24px;margin-bottom:10px;
+  letter-spacing:1.5px;text-transform:uppercase;margin-top:14px;margin-bottom:6px;
 }
-.oil-card-text{font-size:0.88rem;color:var(--sage-700);font-weight:300;line-height:2.0;}
+.oil-card-text{font-size:0.85rem;color:var(--sage-700);font-weight:300;line-height:1.85;}
 .oil-card-quote{
-  margin-top:20px;padding:18px 20px;
+  margin-top:14px;padding:14px 16px;
   background:linear-gradient(135deg,var(--sage-50),#F0F4ED);
   border-radius:var(--radius-sm);border-left:3px solid var(--sage-400);
   font-size:0.88rem;color:var(--sage-600);font-weight:400;line-height:1.8;
@@ -339,12 +339,13 @@ body{
   display:none;position:fixed;top:0;left:0;right:0;bottom:0;
   background:rgba(42,54,42,0.5);backdrop-filter:blur(4px);
   z-index:1000;overflow:hidden;
+  height:100vh;height:100dvh;
 }
 .modal-overlay.show{display:block;}
 .modal{
   background:var(--white);
-  width:100%;height:100%;overflow-y:scroll;-webkit-overflow-scrolling:touch;
-  padding:0 28px 100px;position:relative;
+  max-width:580px;width:100%;height:100vh;height:100dvh;overflow-y:scroll;-webkit-overflow-scrolling:touch;
+  padding:0 36px 100px;position:relative;margin:0 auto;
 }
 .modal-handle{display:none;}
 .modal-close{
@@ -732,11 +733,9 @@ function buildOilCard(oil){
   return `<div class="oil-card-wrap"><div class="oil-card">
     <div class="oil-card-head">
       <div class="oil-card-icon">${oil.icon}</div>
-      <div>
-        <div class="oil-card-name">${oil.name}</div>
-        <div class="oil-card-en">${oil.en}</div>
-        <span class="oil-card-keyword">${oil.keyword}</span>
-      </div>
+      <div class="oil-card-name">${oil.name}</div>
+      <div class="oil-card-en">${oil.en}</div>
+      <span class="oil-card-keyword">${oil.keyword}</span>
     </div>
     <div class="oil-card-body">
       <div class="oil-card-label">당신에게 묻고 싶어요</div>
