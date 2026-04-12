@@ -60,9 +60,9 @@ body{
 .main-content{flex:1;overflow:hidden;}
 
 /* === PAGES (show/hide) === */
-.page-container{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;}
-.app-page{display:none;flex:1;overflow:hidden;min-height:0;}
-.app-page.visible{display:flex;flex-direction:column;}
+.page-container{flex:1;min-height:0;}
+.app-page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:0;}
+.app-page.visible{display:block;}
 
 /* === PAGE 1: EMOTION SELECT === */
 .emotion-page{
@@ -165,7 +165,7 @@ body{
 }
 
 .chat-area{
-  flex:1;overflow-y:auto;padding:16px;
+  padding:16px;
   display:flex;flex-direction:column;gap:10px;
 }
 
@@ -275,9 +275,9 @@ body{
 .btn-restart:hover{background:var(--sage-100);border-color:var(--sage-300);}
 
 /* === GALLERY === */
-.section{display:none;flex:1;flex-direction:column;overflow:hidden;min-height:0;}
+.section{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:0;}
 .section.active{display:flex;}
-.gallery-area{flex:1;overflow-y:auto;padding:16px;}
+.gallery-area{padding:16px;}
 .search-box{position:relative;margin-bottom:12px;}
 .search-box input{
   width:100%;padding:12px 16px 12px 40px;
@@ -578,7 +578,7 @@ function goToPage(n){
   document.getElementById('page1').classList.remove('visible');
   document.getElementById('page'+n).classList.add('visible');
   currentPage = n;
-  if(n===1){ document.getElementById('chatArea').scrollTop=0; }
+  if(n===1){ document.getElementById('page1').scrollTop=0; }
   if(n===0){
     document.getElementById('chatArea').innerHTML='';
     document.getElementById('chatBottom').style.display='none';
@@ -652,7 +652,7 @@ function addBotMsg(html,delay=0){
     div.className='chat-msg bot-msg';
     div.innerHTML=html;
     chatArea.appendChild(div);
-    chatArea.scrollTop=chatArea.scrollHeight;
+    document.getElementById("page1").scrollTop=document.getElementById("page1").scrollHeight;
     r();
   },delay);});
 }
@@ -662,7 +662,7 @@ function addTyping(){
   div.className='chat-msg bot-msg typing-indicator';
   div.innerHTML='<span></span><span></span><span></span>';
   chatArea.appendChild(div);
-  chatArea.scrollTop=chatArea.scrollHeight;
+  document.getElementById("page1").scrollTop=document.getElementById("page1").scrollHeight;
 }
 
 function removeTyping(){
@@ -681,7 +681,7 @@ async function selectOil(oilId){
   userMsgDiv.className = 'chat-msg user-msg';
   userMsgDiv.innerHTML = `<span class="user-msg-text">${oil.name}</span>`;
   chatArea.appendChild(userMsgDiv);
-  chatArea.scrollTop=chatArea.scrollHeight;
+  document.getElementById("page1").scrollTop=document.getElementById("page1").scrollHeight;
 
   addTyping();
   await new Promise(r=>setTimeout(r,1000));
@@ -806,7 +806,7 @@ function openModal(id){
   document.getElementById('searchInput').parentElement.style.display='none';
   document.getElementById('catScroll').style.display='none';
   dv.classList.add('active');
-  document.querySelector('.gallery-area').scrollTop=0;
+  document.getElementById('gallery').scrollTop=0;
 }
 function closeOilDetail(){
   const dv=document.getElementById('oilDetailView');
