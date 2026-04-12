@@ -276,7 +276,7 @@ body{
 
 /* === GALLERY === */
 .section{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:0;}
-.section.active{display:flex;}
+.section.active{display:block;}
 .gallery-area{padding:16px;}
 .search-box{position:relative;margin-bottom:12px;}
 .search-box input{
@@ -578,11 +578,11 @@ function goToPage(n){
   document.getElementById('page1').classList.remove('visible');
   document.getElementById('page'+n).classList.add('visible');
   currentPage = n;
-  if(n===1){ document.getElementById('page1').scrollTop=0; }
+  if(n===1){ document.getElementById('recommend').scrollTop=0; }
   if(n===0){
     document.getElementById('chatArea').innerHTML='';
     document.getElementById('chatBottom').style.display='none';
-    document.getElementById('page0').scrollTop=0;
+    document.getElementById('recommend').scrollTop=0;
     currentCategory=null;
   }
 }
@@ -652,7 +652,7 @@ function addBotMsg(html,delay=0){
     div.className='chat-msg bot-msg';
     div.innerHTML=html;
     chatArea.appendChild(div);
-    document.getElementById("page1").scrollTop=document.getElementById("page1").scrollHeight;
+    document.getElementById("recommend").scrollTop=document.getElementById("recommend").scrollHeight;
     r();
   },delay);});
 }
@@ -662,7 +662,7 @@ function addTyping(){
   div.className='chat-msg bot-msg typing-indicator';
   div.innerHTML='<span></span><span></span><span></span>';
   chatArea.appendChild(div);
-  document.getElementById("page1").scrollTop=document.getElementById("page1").scrollHeight;
+  document.getElementById("recommend").scrollTop=document.getElementById("recommend").scrollHeight;
 }
 
 function removeTyping(){
@@ -681,7 +681,7 @@ async function selectOil(oilId){
   userMsgDiv.className = 'chat-msg user-msg';
   userMsgDiv.innerHTML = `<span class="user-msg-text">${oil.name}</span>`;
   chatArea.appendChild(userMsgDiv);
-  document.getElementById("page1").scrollTop=document.getElementById("page1").scrollHeight;
+  document.getElementById("recommend").scrollTop=document.getElementById("recommend").scrollHeight;
 
   addTyping();
   await new Promise(r=>setTimeout(r,1000));
