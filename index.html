@@ -60,9 +60,9 @@ body{
 .main-content{flex:1;overflow:hidden;}
 
 /* === PAGES (show/hide) === */
-.page-container{flex:1;min-height:0;}
-.app-page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:0;}
-.app-page.visible{display:block;}
+.page-container{flex:1;min-height:0;display:flex;flex-direction:column;}
+.app-page{display:none;flex-direction:column;flex:1;min-height:0;}
+.app-page.visible{display:flex;}
 
 /* === PAGE 1: EMOTION SELECT === */
 .emotion-page{
@@ -165,7 +165,7 @@ body{
 }
 
 .chat-area{
-  padding:16px;
+  padding:16px;flex:1;
   display:flex;flex-direction:column;gap:10px;
 }
 
@@ -275,9 +275,9 @@ body{
 .btn-restart:hover{background:var(--sage-100);border-color:var(--sage-300);}
 
 /* === GALLERY === */
-.section{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:0;}
-.section.active{display:block;}
-.gallery-area{padding:16px;}
+.section{display:none;flex-direction:column;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:0;}
+.section.active{display:flex;}
+.gallery-area{padding:16px;flex:1;}
 .search-box{position:relative;margin-bottom:12px;}
 .search-box input{
   width:100%;padding:12px 16px 12px 40px;
@@ -646,13 +646,19 @@ async function showSubOptions(catId, subIdx) {
 // === CHAT ENGINE ===
 const chatArea = document.getElementById('chatArea');
 
+function scrollRecommendBottom(){
+  requestAnimationFrame(()=>{
+    const el=document.getElementById("recommend");
+    el.scrollTop=el.scrollHeight;
+  });
+}
 function addBotMsg(html,delay=0){
   return new Promise(r=>{setTimeout(()=>{
     const div=document.createElement('div');
     div.className='chat-msg bot-msg';
     div.innerHTML=html;
     chatArea.appendChild(div);
-    document.getElementById("recommend").scrollTop=document.getElementById("recommend").scrollHeight;
+    scrollRecommendBottom();
     r();
   },delay);});
 }
@@ -662,7 +668,7 @@ function addTyping(){
   div.className='chat-msg bot-msg typing-indicator';
   div.innerHTML='<span></span><span></span><span></span>';
   chatArea.appendChild(div);
-  document.getElementById("recommend").scrollTop=document.getElementById("recommend").scrollHeight;
+  scrollRecommendBottom();
 }
 
 function removeTyping(){
@@ -681,7 +687,7 @@ async function selectOil(oilId){
   userMsgDiv.className = 'chat-msg user-msg';
   userMsgDiv.innerHTML = `<span class="user-msg-text">${oil.name}</span>`;
   chatArea.appendChild(userMsgDiv);
-  document.getElementById("recommend").scrollTop=document.getElementById("recommend").scrollHeight;
+  scrollRecommendBottom();
 
   addTyping();
   await new Promise(r=>setTimeout(r,1000));
