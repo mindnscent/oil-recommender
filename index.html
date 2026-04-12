@@ -353,14 +353,14 @@ body{
 
 /* === FOOTER === */
 .app-footer{
-  padding:14px;text-align:center;border-top:1px solid var(--sage-100);
+  padding:18px 14px;text-align:center;border-top:1px solid var(--sage-100);
   background:var(--white);flex-shrink:0;
 }
 .footer-brand{
-  font-family:'Noto Sans KR',sans-serif;font-size:0.72rem;font-weight:700;
-  color:var(--sage-500);letter-spacing:3px;text-transform:uppercase;
+  font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;
+  color:var(--sage-500);letter-spacing:4px;text-transform:uppercase;
 }
-.footer-sub{font-size:0.65rem;color:var(--sage-400);margin-top:1px;font-weight:300;}
+.footer-sub{font-size:0.65rem;color:var(--sage-400);margin-top:3px;font-weight:300;}
 
 /* ANIMATIONS */
 @keyframes msgIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
@@ -645,6 +645,7 @@ async function showSubOptions(catId, subIdx) {
     `<button class="follow-btn" onclick="selectOil(${o.oilId})"><span class="follow-btn-dot"></span>${o.text}</button>`
   ).join('');
   await addBotMsg(`조금 더 구체적으로 어떤 느낌이세요?<div class="follow-options">${optHtml}</div>`);
+  setTimeout(()=>{ document.getElementById('chatArea').scrollTop=0; },300);
 }
 
 // === CHAT ENGINE ===
@@ -726,8 +727,9 @@ async function selectOil(oilId){
   document.getElementById('chatBottom').style.display='block';
 
   // 모든 메시지 추가 완료 후 오일 카드 상단으로 스크롤
-  await new Promise(r=>setTimeout(r,150));
-  if(oilCardMsg) oilCardMsg.scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>{
+    if(oilCardMsg) oilCardMsg.scrollIntoView({behavior:'instant',block:'start'});
+  },300);
 }
 
 function buildOilCard(oil){
