@@ -305,7 +305,7 @@ body{
 }
 .cat-chip:hover{border-color:var(--sage-400);}
 .cat-chip.active{background:var(--sage-600);color:var(--white);border-color:var(--sage-600);}
-.companion-wrap{margin-top:4px;}
+.companion-wrap{margin-top:4px;max-width:380px;margin-left:auto;margin-right:auto;}
 .companion-title{font-size:0.82rem;font-weight:600;color:var(--sage-600);margin-bottom:8px;}
 .companion-cards{display:flex;flex-direction:column;gap:8px;}
 .companion-card{
@@ -764,7 +764,7 @@ async function selectOil(oilId){
   addTyping();
   await new Promise(r=>setTimeout(r,800));
   removeTyping();
-  await addBotMsg('이 향기와 함께 마음을 돌보는<br>시간을 가져보세요 ☺️');
+  await addBotMsg('<div style="margin-top:8px;">이 향기와 함께 마음을 돌보는 시간을 가져보세요 ☺️</div>');
 
   // 함께 쓰면 좋은 오일 추천
   const compCard=buildCompanionCard(oil);
