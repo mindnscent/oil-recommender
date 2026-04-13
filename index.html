@@ -596,16 +596,25 @@ function goToPage(n){
   currentPage = n;
   if(n===1){ document.getElementById('chatArea').scrollTop=0; }
   if(n===0){
-    // 모든 가능한 스크롤 컨테이너 리셋
-    setTimeout(()=>{
+    // iframe 내 모든 스크롤 위치 강제 리셋
+    // (scrollIntoView가 .app 등 상위 요소를 스크롤시킬 수 있음)
+    const resetScroll=()=>{
       window.scrollTo(0,0);
       document.documentElement.scrollTop=0;
       document.body.scrollTop=0;
-      document.querySelector('.app').scrollTop=0;
-      document.getElementById('recommend').scrollTop=0;
-      document.querySelector('.page-container').scrollTop=0;
-      document.getElementById('page0').scrollTop=0;
-    },50);
+      const app=document.querySelector('.app');
+      if(app) app.scrollTop=0;
+      const sec=document.getElementById('recommend');
+      if(sec) sec.scrollTop=0;
+      const pc=sec&&sec.querySelector('.page-container');
+      if(pc) pc.scrollTop=0;
+      const p0=document.getElementById('page0');
+      if(p0) p0.scrollTop=0;
+    };
+    resetScroll();
+    requestAnimationFrame(resetScroll);
+    setTimeout(resetScroll,50);
+    setTimeout(resetScroll,150);
   }
 }
 
@@ -756,8 +765,12 @@ async function selectOil(oilId){
   autoScrollEnabled=true;
 
   // 모든 메시지 추가 완료 후 오일 카드 상단으로 스크롤
+  // scrollIntoView 대신 수동 scrollTop 사용 (부모 요소 스크롤 방지)
   setTimeout(()=>{
-    if(oilCardMsg) oilCardMsg.scrollIntoView({behavior:'instant',block:'start'});
+    if(oilCardMsg){
+      const chatEl=document.getElementById('chatArea');
+      if(chatEl) chatEl.scrollTop=oilCardMsg.offsetTop-chatEl.offsetTop;
+    }
   },300);
 }
 
