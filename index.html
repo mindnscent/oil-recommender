@@ -214,14 +214,14 @@ body{
 }
 
 /* Oil card */
-.oil-card-wrap{margin-top:8px;}
+.oil-card-wrap{margin-top:8px;max-width:380px;margin-left:auto;margin-right:auto;}
 .oil-card{
   background:var(--white);border:none;
   border-radius:var(--radius);padding:0;position:relative;overflow:hidden;
 }
 .oil-card::before{display:none;}
 .oil-card-head{
-  display:flex;align-items:center;justify-content:center;gap:8px;
+  display:flex;align-items:center;gap:8px;
   padding:16px 0 12px;flex-wrap:wrap;
 }
 @media(max-width:768px){.oil-card-head{padding-top:20px;}}
@@ -242,7 +242,7 @@ body{
   color:var(--sage-700);padding:3px 12px;border-radius:50px;
   font-size:0.7rem;font-weight:500;
 }
-.oil-card-body{padding:0;text-align:center;}
+.oil-card-body{padding:0;}
 .oil-card-divider{height:1px;background:var(--sage-100);margin:14px 0;}
 .oil-card-label{
   font-size:0.68rem;font-weight:600;color:var(--sage-400);
