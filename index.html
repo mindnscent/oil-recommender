@@ -385,11 +385,15 @@ body{
 
 @media(max-width:580px){.app{box-shadow:none;}}
 .desktop-widget .logo-img{display:none;}
-.desktop-widget .app-header{padding:30px 20px 20px;}
-.desktop-widget .big-cat-grid{padding:0 48px 14px;row-gap:6px;column-gap:20px;}
-.desktop-widget .big-cat-card{padding:8px 6px;min-height:68px;}
-.desktop-widget .big-cat-label{font-size:11.5px;line-height:1.3;}
-.desktop-widget .emotion-page-header{padding:10px 24px 15px;}
+.desktop-widget .app-header{padding:12px 20px 8px;}
+.desktop-widget .nav-tab{padding:5px 0;font-size:0.8rem;}
+.desktop-widget .big-cat-grid{padding:0 36px 10px;row-gap:5px;column-gap:16px;}
+.desktop-widget .big-cat-card{padding:6px 6px;min-height:56px;}
+.desktop-widget .big-cat-label{font-size:11px;line-height:1.25;}
+.desktop-widget .big-cat-sub{font-size:0.6rem;}
+.desktop-widget .emotion-page-header{padding:6px 24px 8px;}
+.desktop-widget .emotion-page-title{font-size:0.92rem;margin-bottom:2px;}
+.desktop-widget .emotion-page-sub{font-size:0.75rem;}
 .desktop-widget .cat-scroll{display:none;}
 </style>
 </head>
@@ -400,7 +404,7 @@ body{
     <img id="logoImg" alt="Mind N Scent" class="logo-img">
     <nav class="nav-tabs">
       <button class="nav-tab active" data-tab="recommend">오늘의 추천</button>
-      <button class="nav-tab" data-tab="gallery">오일 갤러리</button>
+      <button class="nav-tab" data-tab="gallery">에센셜 오일 갤러리</button>
     </nav>
   </header>
 
@@ -677,7 +681,12 @@ async function showSubOptions(catId, subIdx) {
   autoScrollEnabled=false;
   await addBotMsg(`조금 더 구체적으로 어떤 느낌이세요?<div class="follow-options">${optHtml}</div>`);
   autoScrollEnabled=true;
-  setTimeout(()=>{ document.getElementById('chatArea').scrollTop=0; },50);
+  // 마지막 메시지(서브옵션)가 최상단에 보이도록 스크롤
+  setTimeout(()=>{
+    const msgs=chatArea.querySelectorAll('.chat-msg');
+    const last=msgs[msgs.length-1];
+    if(last) chatArea.scrollTop=last.offsetTop-chatArea.offsetTop;
+  },50);
 }
 
 // === CHAT ENGINE ===
@@ -806,7 +815,7 @@ function buildCompanionCard(oil){
   const cards=ids.map(cid=>{
     const c=allOils.find(o=>o.id===cid);
     if(!c)return '';
-    return `<div class="companion-card" onclick="openModal(${c.id})">
+    return `<div class="companion-card" onclick="goToOilDetail(${c.id})">
       <div class="companion-icon">${c.icon}</div>
       <div class="companion-info">
         <span class="companion-name">${c.name}</span>
@@ -863,6 +872,17 @@ function openModal(id){
   document.getElementById('catScroll').style.display='none';
   dv.classList.add('active');
   document.querySelector('.gallery-area').scrollTop=0;
+}
+// 추천 챗에서 companion 오일 클릭 → 갤러리 탭으로 이동 후 상세 표시
+function goToOilDetail(id){
+  // 갤러리 탭으로 전환
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.nav-tab[data-tab="gallery"]').classList.add('active');
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('gallery').classList.add('active');
+  renderCatScroll();filterGallery();
+  // 오일 상세 열기
+  setTimeout(()=>openModal(id),100);
 }
 function closeOilDetail(){
   const dv=document.getElementById('oilDetailView');
