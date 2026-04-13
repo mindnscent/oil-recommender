@@ -34,7 +34,7 @@ body{
 .app{
   max-width:580px;margin:0 auto;height:100%;
   display:flex;flex-direction:column;background:var(--white);
-  box-shadow:var(--shadow-lg);overflow:hidden;
+  box-shadow:var(--shadow-lg);overflow:clip;
 }
 
 /* === HEADER === */
@@ -57,7 +57,7 @@ body{
 .nav-tab.active{background:var(--white);color:var(--sage-700);box-shadow:var(--shadow-sm);}
 
 /* === MAIN CONTENT === */
-.main-content{flex:1;overflow:hidden;}
+.main-content{flex:1;overflow:clip;}
 
 /* === PAGES (show/hide) === */
 .page-container{flex:1;min-height:0;display:flex;flex-direction:column;}
@@ -279,7 +279,7 @@ body{
 .btn-restart:hover{background:var(--sage-100);border-color:var(--sage-300);}
 
 /* === GALLERY === */
-.section{display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0;}
+.section{display:none;flex-direction:column;flex:1;overflow:clip;min-height:0;}
 .section.active{display:flex;}
 .gallery-area{padding:16px;padding-bottom:160px;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 .search-box{position:relative;margin-bottom:12px;}
