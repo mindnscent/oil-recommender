@@ -221,7 +221,7 @@ body{
 }
 .oil-card::before{display:none;}
 .oil-card-head{
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
   padding:16px 0 12px;flex-wrap:wrap;
 }
 @media(max-width:768px){.oil-card-head{padding-top:20px;}}
@@ -242,7 +242,7 @@ body{
   color:var(--sage-700);padding:3px 12px;border-radius:50px;
   font-size:0.7rem;font-weight:500;
 }
-.oil-card-body{padding:0;}
+.oil-card-body{padding:0;text-align:center;}
 .oil-card-divider{height:1px;background:var(--sage-100);margin:14px 0;}
 .oil-card-label{
   font-size:0.68rem;font-weight:600;color:var(--sage-400);
@@ -391,7 +391,7 @@ body{
 .desktop-widget .big-cat-card{padding:6px 6px;min-height:56px;}
 .desktop-widget .big-cat-label{font-size:11px;line-height:1.25;}
 .desktop-widget .big-cat-sub{font-size:0.6rem;}
-.desktop-widget .emotion-page-header{padding:15px 24px 20px;}
+.desktop-widget .emotion-page-header{padding:20px 24px 20px;}
 .desktop-widget .emotion-page-title{font-size:0.92rem;margin-bottom:2px;}
 .desktop-widget .emotion-page-sub{font-size:0.75rem;}
 .desktop-widget .cat-scroll{display:none;}
@@ -661,7 +661,12 @@ function selectCategory(catId) {
       await addBotMsg(`${cat.question}<div class="follow-options">${optHtml}</div>`);
     }
     autoScrollEnabled=true;
-    setTimeout(()=>{ document.getElementById('chatArea').scrollTop=0; },50);
+    // 마지막 메시지(질문+옵션)가 최상단에 보이도록 스크롤
+    setTimeout(()=>{
+      const msgs=chatArea.querySelectorAll('.chat-msg');
+      const last=msgs[msgs.length-1];
+      if(last) chatArea.scrollTop=last.offsetTop-chatArea.offsetTop;
+    },50);
   }, 400);
 }
 
