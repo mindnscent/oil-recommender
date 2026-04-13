@@ -61,7 +61,7 @@ body{
 
 /* === PAGES (show/hide) === */
 .page-container{flex:1;min-height:0;display:flex;flex-direction:column;}
-.app-page{display:none;flex-direction:column;flex:1;min-height:0;}
+.app-page{display:none;flex-direction:column;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;}
 .app-page.visible{display:flex;}
 
 /* === PAGE 1: EMOTION SELECT === */
@@ -309,16 +309,22 @@ body{
 .companion-title{font-size:0.82rem;font-weight:600;color:var(--sage-600);margin-bottom:8px;}
 .companion-cards{display:flex;flex-direction:column;gap:8px;}
 .companion-card{
-  display:flex;align-items:center;gap:12px;padding:12px 14px;
-  background:var(--sage-50);border:1px solid var(--sage-200);border-radius:var(--radius-sm);
+  display:flex;align-items:center;gap:10px;padding:10px 14px;
+  background:var(--white);border:1px solid var(--sage-100);border-radius:10px;
   cursor:pointer;transition:var(--transition);
 }
-.companion-card:hover{border-color:var(--sage-400);box-shadow:var(--shadow-sm);}
-.companion-icon{font-size:1.2rem;flex-shrink:0;}
-.companion-info{flex:1;min-width:0;}
-.companion-name{font-size:0.88rem;font-weight:600;color:var(--sage-700);}
-.companion-en{font-size:0.72rem;color:var(--sage-400);font-family:'Cormorant Garamond',serif;font-style:italic;}
-.companion-keyword{font-size:0.72rem;color:var(--sage-500);margin-top:2px;}
+.companion-card:hover{border-color:var(--sage-300);box-shadow:var(--shadow-sm);}
+.companion-icon{
+  width:32px;height:32px;border-radius:8px;background:var(--sage-100);
+  display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;
+}
+.companion-info{flex:1;min-width:0;display:flex;align-items:center;gap:8px;}
+.companion-name{font-size:0.85rem;font-weight:500;color:var(--sage-800);white-space:nowrap;}
+.companion-en{font-size:0.75rem;color:var(--sage-500);font-family:'Cormorant Garamond',serif;font-style:italic;white-space:nowrap;}
+.companion-keyword{
+  display:inline-block;background:var(--sage-50);color:var(--sage-600);
+  padding:1px 8px;border-radius:50px;font-size:0.65rem;font-weight:500;margin-left:auto;white-space:nowrap;
+}
 .oil-list{display:flex;flex-direction:column;gap:4px;margin-top:4px;}
 .oil-item{
   display:flex;align-items:center;gap:10px;padding:10px 14px;
@@ -781,9 +787,9 @@ function buildCompanionCard(oil){
     return `<div class="companion-card" onclick="openModal(${c.id})">
       <div class="companion-icon">${c.icon}</div>
       <div class="companion-info">
-        <div class="companion-name">${c.name}</div>
-        <div class="companion-en">${c.en}</div>
-        <div class="companion-keyword">${c.keyword}</div>
+        <span class="companion-name">${c.name}</span>
+        <span class="companion-en">${c.en}</span>
+        <span class="companion-keyword">${c.keyword}</span>
       </div>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sage-400)" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
     </div>`;
