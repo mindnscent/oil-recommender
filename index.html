@@ -634,7 +634,6 @@ function goToPage(n){
 document.getElementById('bigCatGrid').innerHTML = categoryData.map(cat => `
   <div class="big-cat-card" onclick="selectCategory('${cat.id}')">
     <span class="big-cat-label" style="padding-top:${cat.labelHtml.includes('<br>')?'4':'16'}px">${cat.labelHtml||cat.label}</span>
-    <span class="big-cat-sub">${cat.enSub||''}</span>
   </div>
 `).join('');
 
